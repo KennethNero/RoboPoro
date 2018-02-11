@@ -1,4 +1,5 @@
-package com.kbn1798;
+package com.kbn1798.utils;
+
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,13 +14,13 @@ import sx.blah.discord.util.DiscordException;
 import sx.blah.discord.util.EmbedBuilder;
 import sx.blah.discord.util.RequestBuffer;
 
-class BotCmdTest {
+public class BotUtils {
 
     // Constants for use throughout the bot
-    static String BOT_PREFIX = "/";
+    public static String BOT_PREFIX = "/";
 
     // Handles the creation and getting of a IDiscordClient object for a token
-    static IDiscordClient getBuiltDiscordClient(String token){
+    public static IDiscordClient getBuiltDiscordClient(String token){
 
         // The ClientBuilder object is where you will attach your params for configuring the instance of your bot.
         // Such as withToken, setDaemon etc
@@ -36,7 +37,7 @@ class BotCmdTest {
      * @throws MalformedURLException Because people suck with files
      * @throws IOException And occasionally people suck with files
      */
-    static void sendFileFromURL(IChannel channel, String url, String msgText, String fileName) throws MalformedURLException, IOException {
+    public static void sendFileFromURL(IChannel channel, String url, String msgText, String fileName) throws MalformedURLException, IOException {
     	InputStream input = new URL(url).openStream();
     	RequestBuffer.request(() ->{
     		try {
@@ -49,9 +50,11 @@ class BotCmdTest {
     	});
     }
     
-    static void embedFileFromURL(IChannel channel, String url) throws MalformedURLException, IOException{
+    public static void embedFileFromURL(IChannel channel, String url, String msg, String title) throws MalformedURLException, IOException{
     	EmbedBuilder i = new EmbedBuilder();
+    	i.withTitle(title);
     	i.withImage(url);
+    	i.withDesc(msg);
     	EmbedObject e = i.build();
     	RequestBuffer.request(() ->{
     		try {
@@ -66,7 +69,7 @@ class BotCmdTest {
     
 
     // Helper functions to make certain aspects of the bot easier to use.
-    static void sendMessage(IChannel channel, String message){
+    public static void sendMessage(IChannel channel, String message){
 
         // This might look weird but it'll be explained in another page.
         RequestBuffer.request(() -> {
