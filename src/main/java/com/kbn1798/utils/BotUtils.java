@@ -1,6 +1,5 @@
 package com.kbn1798.utils;
 
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;

@@ -5,7 +5,6 @@ import java.util.Random;
 import com.kbn1798.utils.BotUtils;
 
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
-import sx.blah.discord.handle.impl.obj.Message;
 
 public class PoroRoll {
 
