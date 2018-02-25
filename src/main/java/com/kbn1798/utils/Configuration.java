@@ -2,14 +2,17 @@ package com.kbn1798.utils;
 
 import java.util.ArrayList;
 
+/***
+ * Basic configuration file, snakeyaml parses 'config.yml' into these values.
+ * @author kener
+ *
+ */
 public final class Configuration { 
-	
 	private ArrayList<String> poroPics;
 	private ArrayList<String> poroIntros;
     
     public ArrayList<String> getPoroPics() {
     	return poroPics;
-    	
     }
     public ArrayList<String> getPoroIntros() {
     	return poroIntros;
@@ -22,13 +25,4 @@ public final class Configuration {
     	this.poroPics=s;
     }
  
-//    @Override
-//    public String toString() {
-//        return new StringBuilder()
-//            .append( format( "Version: %s\n", version ) )
-//            .append( format( "Released: %s\n", released ) )
-//            .append( format( "Supported protocols: %s\n", protocols ) )
-//            .append( format( "Users: %s\n", users ) )
-//            .toString();
-//    }
 }

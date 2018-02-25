@@ -7,20 +7,33 @@ import com.kbn1798.utils.BotUtils;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 
 public class PoroRoll {
-
+	
+	/***
+	 * Base method for roll processing.
+	 * @param event The event that triggered this method to be fired.
+	 */
 	public static void processRoll(MessageReceivedEvent event) {
 		String fullCmd = event.getMessage().getContent();
 		String[] split = fullCmd.split(" ");
-		BotUtils.sendMessage(event.getChannel(), process(split, event));
+		process(split, event);
 	}
 	
-	private static String process(String[] s, MessageReceivedEvent e) {
-		if(!s[0].equalsIgnoreCase("/roll")) {
+	/***
+	 * Works through processing 'rolls' and potential joke commands, serves as the main parser
+	 * of this specific command group.
+	 * @param s A string array consisting of each argument as separated by spaces.
+	 * @param e The event that triggered the containing method to be fired.
+	 */
+	private static void process(String[] s, MessageReceivedEvent e) {
+		if(!s[0].equalsIgnoreCase("/roll")) { //General catch all for badly done commands.
 			BotUtils.sendMessage(e.getChannel(), "Oops! Improper format detected. " + s[0]+ " "+s[1]);
-			return null;
-		}else if(s.length>=2) {
-			System.out.println("recognised cmd");
-			String[] s2 = s[1].split("d"); //1d100
+			return;
+		}else if(s.length>=2) { // Container for meme and base roll commands.
+			if(s[1].equalsIgnoreCase("froshboard")) {
+				BotUtils.sendMessage(e.getChannel(), "Conditional!");
+				return;
+			}
+			String[] s2 = s[1].split("d"); //Split commands like '1d100' to 1, and 100.
 			int numDie;
 			int dieVal;
 			try {
@@ -28,7 +41,7 @@ public class PoroRoll {
 				dieVal = Integer.parseInt(s2[1]);
 			}catch(Exception ex) {
 				BotUtils.sendMessage(e.getChannel(), s2[0]+" or "+s2[1]+" cant be interpreted as a number, please reformat!");
-				return null;
+				return;
 			}
 			//Deals with processing s[2] or the modifier
 			int mod = 0;
@@ -43,12 +56,19 @@ public class PoroRoll {
 					BotUtils.sendMessage(e.getChannel(), "Modifier could not be parsed as an integer, please reformat!");
 				}
 			}
-			return calcForm(numDie, dieVal, mod);
-			
+			BotUtils.sendMessage(e.getChannel(), calcForm(numDie, dieVal, mod));
+			return;
 		}
-		return "Something went terriably wrong!";
+		return;
 	}
 	
+	/***
+	 * Iterates through dice and final number calculation.
+	 * @param die The amount of dice to be rolled
+	 * @param vals The values of each dice.
+	 * @param mod The modifier attached to the end of the rolls.
+	 * @return A formatted string representing the outcome.
+	 */
 	private static String calcForm(int die, int vals, int mod) {
 		StringBuilder sb = new StringBuilder();
 		if(mod<0) {

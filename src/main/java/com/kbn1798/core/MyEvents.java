@@ -12,6 +12,12 @@ import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedE
 
 public class MyEvents {
 
+	/***
+	 * Catch all method for handling any message events supposed to be caught by the bot itself.
+	 * @param event The specific event in question.
+	 * @throws MalformedURLException The possibility exists that a bad url comes through this method.
+	 * @throws IOException Required IO exception catch.
+	 */
     @EventSubscriber
     public void onMessageReceived(MessageReceivedEvent event) throws MalformedURLException, IOException{
         if(event.getMessage().getContent().startsWith(BotUtils.BOT_PREFIX + "test")) {

@@ -16,6 +16,7 @@ import sx.blah.discord.api.IDiscordClient;
 public class MainRunner {
 	public static Configuration config;
     public static void main(String[] args) throws IOException{
+    	//Main malformed input check block.
         if(args.length != 2){
         	if(args.length != 1) {
         		System.out.println("Please enter the bots token as the first argument e.g java -jar thisjar.jar tokenhere");
@@ -27,7 +28,8 @@ public class MainRunner {
         		System.out.println("Too many arguments, you've scared all the poros away.");
         	}
         }
-  
+        
+        //Configuration set up and init using snakeyaml
         Yaml yaml = new Yaml();  
         try( InputStream in = Files.newInputStream( Paths.get( args[ 1 ] ) ) ) {
             config = yaml.loadAs( in, Configuration.class );
@@ -38,23 +40,10 @@ public class MainRunner {
         	config = yaml.loadAs( in, Configuration.class );
         }
         
-        
 
         IDiscordClient cli = BotUtils.getBuiltDiscordClient(args[0]);
 
-        /*
-        // Commented out as you don't really want duplicate listeners unless you're intentionally writing your code 
-        // like that.
-        // Register a listener via the IListener interface
-        cli.getDispatcher().registerListener(new IListener<MessageReceivedEvent>() {
-            public void handle(MessageReceivedEvent event) {
-                if(event.getMessage().getContent().startsWith(BotUtils.BOT_PREFIX + "test"))
-                    BotUtils.sendMessage(event.getChannel(), "I am sending a message from an IListener listener");
-            }
-        });
-        */
-
-        // Register a listener via the EventSubscriber annotation which allows for organisation and delegation of events
+        // Register a listener via the EventSubscriber annotation which allows for organization and delegation of events
         cli.getDispatcher().registerListener(new MyEvents());
 
         // Only login after all events are registered otherwise some may be missed.

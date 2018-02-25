@@ -49,6 +49,15 @@ public class BotUtils {
     	});
     }
     
+    /***
+     * Handles the creation of embedded messages with the inclusion of a url.
+     * @param channel Channel message is to be sent to.
+     * @param url The url of the picture to be embedded.
+     * @param msg The message attached to the picture
+     * @param title The title of the embedded situation
+     * @throws MalformedURLException Because urls are included here, malformed url errors are required.
+     * @throws IOException Classic IO exception.
+     */
     public static void embedFileFromURL(IChannel channel, String url, String msg, String title) throws MalformedURLException, IOException{
     	EmbedBuilder i = new EmbedBuilder();
     	i.withTitle(title);
@@ -67,7 +76,11 @@ public class BotUtils {
     }
     
 
-    // Helper functions to make certain aspects of the bot easier to use.
+    /***
+     * Simplistic message sending method, no bells or whistles.
+     * @param channel The channel to be sent to.
+     * @param message The message to be sent.
+     */
     public static void sendMessage(IChannel channel, String message){
 
         // This might look weird but it'll be explained in another page.
@@ -79,19 +92,5 @@ public class BotUtils {
                 e.printStackTrace();
             }
         });
-        
-
-		/*
-		// The below example is written to demonstrate sending a message if you want to catch the RLE for logging purposes
-        RequestBuffer.request(() -> {
-            try{
-                channel.sendMessage(message);
-            } catch (RateLimitException e){
-                System.out.println("Do some logging");
-                throw e;
-            }
-        });
-        */
-
     }
 }
