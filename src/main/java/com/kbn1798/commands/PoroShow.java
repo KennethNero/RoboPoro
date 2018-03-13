@@ -19,9 +19,20 @@ public class PoroShow {
 	 * @throws IOException Classic I/O Exception.
 	 */
 	public static void providePoro(MessageReceivedEvent event) throws MalformedURLException, IOException{
-		int i = (int) (Math.random()*MainRunner.config.getPoroPics().size());
+		int i = (int) (Math.random()*MainRunner.config.getPoroNames().size());
+		String name = "";
+		int j=0;
+		System.out.println(i);
+		for(String s: MainRunner.config.getPoroNames()) {
+			if(j==i) {
+				name = s;
+				break;
+			}j++;
+		}
+		System.out.println(name);
+		System.out.println(MainRunner.config.getPoroPics().get(name));
 		int k = (int) (Math.random()*MainRunner.config.getPoroIntros().size());
-    	BotUtils.embedFileFromURL(event.getChannel(), MainRunner.config.getPoroPics().get(i), MainRunner.config.getPoroIntros().get(k), "Found one!");
+    	BotUtils.embedFileFromURL(event.getChannel(), MainRunner.config.getPoroPics().get(name), MainRunner.config.getPoroIntros().get(k), "Found one!");
 		
 	}
 

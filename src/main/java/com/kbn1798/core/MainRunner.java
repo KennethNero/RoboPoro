@@ -39,7 +39,7 @@ public class MainRunner {
         	InputStream in = Files.newInputStream( Paths.get( args[ 1 ] ) );
         	config = yaml.loadAs( in, Configuration.class );
         }
-        
+        //System.out.println(config.toString());
 
         IDiscordClient cli = BotUtils.getBuiltDiscordClient(args[0]);
 
