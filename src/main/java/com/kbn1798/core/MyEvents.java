@@ -31,6 +31,8 @@ public class MyEvents {
         			PoroShow.listBois(event);
         		}else if(MainRunner.config.getPoroNames().contains(split[1])) {
         			PoroShow.provideSpecPoro(event);
+        		}else {
+        			PoroShow.nameFindError(event);
         		}
         	}else{
         		PoroShow.providePoro(event);

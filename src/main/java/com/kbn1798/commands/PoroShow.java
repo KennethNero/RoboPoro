@@ -59,4 +59,9 @@ public class PoroShow {
 		BotUtils.embededPoroList(event.getChannel(), fields, pics);
 	}
 
+	public static void nameFindError(MessageReceivedEvent event) {
+		BotUtils.sendMessage(event.getChannel(), "Oops! Couldn't find that in our list!\nDo **/poro list** for all currently entered poros!" );
+		
+	}
+
 }

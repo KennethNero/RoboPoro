@@ -40,7 +40,7 @@ public class PoroRoll {
 				numDie = Integer.parseInt(s2[0]);
 				dieVal = Integer.parseInt(s2[1]);
 			}catch(Exception ex) {
-				BotUtils.sendMessage(e.getChannel(), s2[0]+" or "+s2[1]+" cant be interpreted as a number, please reformat!");
+				BotUtils.sendMessage(e.getChannel(), s[1]+" cant be interpreted as a roll argument, please reformat!");
 				return;
 			}
 			//Deals with processing s[2] or the modifier
