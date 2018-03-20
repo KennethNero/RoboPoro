@@ -20,13 +20,23 @@ public class MyEvents {
 	 */
     @EventSubscriber
     public void onMessageReceived(MessageReceivedEvent event) throws MalformedURLException, IOException{
-        if(event.getMessage().getContent().startsWith(BotUtils.BOT_PREFIX + "test")) {
+    	String content = event.getMessage().getContent();
+        if(content.startsWith(BotUtils.BOT_PREFIX + "test")) {
             BotUtils.sendMessage(event.getChannel(), "I am sending a message from an EventSubscriber listener");
         }
-        else if(event.getMessage().getContent().startsWith(BotUtils.BOT_PREFIX + "poro")) {
-        	PoroShow.providePoro(event);
+        else if(content.startsWith(BotUtils.BOT_PREFIX + "poro")) {
+        	String[] split = content.split(" ");
+        	if(split.length>=2) {
+        		if(split[1].equalsIgnoreCase("list")) {
+        			PoroShow.listBois(event);
+        		}else if(MainRunner.config.getPoroNames().contains(split[1])) {
+        			PoroShow.provideSpecPoro(event);
+        		}
+        	}else{
+        		PoroShow.providePoro(event);
+        	}
         }
-        else if(event.getMessage().getContent().startsWith(BotUtils.BOT_PREFIX + "roll")) {
+        else if(content.startsWith(BotUtils.BOT_PREFIX + "roll")) {
         	PoroRoll.processRoll(event);
         }
     }

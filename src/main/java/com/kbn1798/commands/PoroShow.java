@@ -2,6 +2,8 @@ package com.kbn1798.commands;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kbn1798.core.MainRunner;
 import com.kbn1798.utils.BotUtils;
@@ -34,6 +36,27 @@ public class PoroShow {
 		int k = (int) (Math.random()*MainRunner.config.getPoroIntros().size());
     	BotUtils.embedFileFromURL(event.getChannel(), MainRunner.config.getPoroPics().get(name), MainRunner.config.getPoroIntros().get(k), "Found one!");
 		
+	}
+	
+	public static void provideSpecPoro(MessageReceivedEvent event) throws MalformedURLException, IOException{
+		String name = event.getMessage().getContent().split(" ")[1];
+		int k = (int) (Math.random()*MainRunner.config.getPoroIntros().size());
+		BotUtils.embedFileFromURL(event.getChannel(), MainRunner.config.getPoroPics().get(name), MainRunner.config.getPoroIntros().get(k), "Heres "+name+"!");
+		
+	}
+
+	/**
+	 * A method designed to display information from the yaml configuration into chat as an embedded message.
+	 * 
+	 * @param event The trigger event that calls this method (/poro list)
+	 */
+	public static void listBois(MessageReceivedEvent event) {
+		HashMap<String, String> pics = MainRunner.config.getPoroPics();
+		ArrayList<String> fields = new ArrayList<String>();
+		for(String s:pics.keySet()) {
+			fields.add(s);
+		}
+		BotUtils.embededPoroList(event.getChannel(), fields, pics);
 	}
 
 }
