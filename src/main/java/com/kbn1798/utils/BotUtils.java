@@ -28,10 +28,9 @@ public class BotUtils {
         return new ClientBuilder()
                 .withToken(token)
                 .build();
-
     }
     
-    /**
+    /***
      * Sends a file from URL with a given message.
      * 
      * @param channel Channel from which the event is being handled
@@ -46,7 +45,6 @@ public class BotUtils {
     		}catch (DiscordException e){
     			System.err.println("File could not be sent with error: ");
     			e.printStackTrace();
-    			
     		}
     	});
     }
@@ -80,12 +78,11 @@ public class BotUtils {
 
     /***
      * Simplistic message sending method, no bells or whistles.
+     * 
      * @param channel The channel to be sent to.
      * @param message The message to be sent.
      */
     public static void sendMessage(IChannel channel, String message){
-
-        // This might look weird but it'll be explained in another page.
         RequestBuffer.request(() -> {
             try{
                 channel.sendMessage(message);
@@ -96,7 +93,7 @@ public class BotUtils {
         });
     }
     
-    /**
+    /***
      * A method specifically designed to deliver an embeded message to a channel, working in tandem with is mirror in PoroShow.java
      * 
      * @param channel The channel the trigger command originated from and final message will be sent to.
@@ -120,4 +117,5 @@ public class BotUtils {
 
         RequestBuffer.request(() -> channel.sendMessage(builder.build()));
     }
+    
 }

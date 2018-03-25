@@ -19,6 +19,7 @@ import sx.blah.discord.api.IDiscordClient;
 public class MainRunner {
 	public static Configuration config;
 	public static String path;
+	
     public static void main(String[] args) throws IOException{
     	//Main malformed input check block.
         if(args.length != 2){
@@ -56,7 +57,10 @@ public class MainRunner {
 
     }
     
-    
+    /***
+     * Acts as a quick call to save the config of a given instance of the
+     * program.
+     */
     public static void saveConfig() {
     	Yaml yaml = new Yaml();
     	Map<String, Object> data = new HashMap<String, Object>();
@@ -67,8 +71,6 @@ public class MainRunner {
     	}catch(IOException e) {
     		e.printStackTrace();
     	}
-    	
     }
-
 
 }

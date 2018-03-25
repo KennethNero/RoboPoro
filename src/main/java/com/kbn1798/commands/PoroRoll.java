@@ -90,7 +90,6 @@ public class PoroRoll {
 		}else {
 			sb.append(")\nTotal: "+total);
 		}
-		
 		return sb.toString();
 	}
 
