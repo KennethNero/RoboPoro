@@ -3,6 +3,7 @@ package com.kbn1798.core;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
+import com.kbn1798.commands.PoroModify;
 import com.kbn1798.commands.PoroRoll;
 import com.kbn1798.commands.PoroShow;
 import com.kbn1798.utils.BotUtils;
@@ -29,6 +30,12 @@ public class MyEvents {
         	if(split.length>=2) {
         		if(split[1].equalsIgnoreCase("list")) {
         			PoroShow.listBois(event);
+        		}else if(split[1].equalsIgnoreCase("add")) {
+        			if(split.length>= 4) {
+        				PoroModify.addPoro(event, split[2], split[3]);
+        			}else {
+        				PoroModify.argsError(event);
+        			}
         		}else if(MainRunner.config.getPoroNames().contains(split[1])) {
         			PoroShow.provideSpecPoro(event);
         		}else {

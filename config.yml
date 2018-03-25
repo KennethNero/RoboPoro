@@ -1,22 +1,27 @@
-poroPics:
-    Mitchel: https://i.imgur.com/qGWNJI6.jpg
-    Dorian: https://i.imgur.com/eY7722M.jpg
-    Rupert: https://i.imgur.com/YHEneSA.jpg
-    Pip: https://i.imgur.com/IRz71Sq.png
-    Mort: https://i.imgur.com/Ir8OP15.png
-    Munch: https://i.imgur.com/VrENQFY.png
-    Maddie: https://i.imgur.com/Xz1Hm06.jpg
-    Varo: https://i.imgur.com/GFs2KN3.jpg
-    Arco: https://i.imgur.com/e2LeJ6Z.jpg
-    Shakira: https://i.imgur.com/mdM9Q08.jpg
+poroPics: {Mitchel: 'https://i.imgur.com/qGWNJI6.jpg', Dorian: 'https://i.imgur.com/eY7722M.jpg',
+  Rupert: 'https://i.imgur.com/YHEneSA.jpg', Pip: 'https://i.imgur.com/IRz71Sq.png',
+  Mort: 'https://i.imgur.com/Ir8OP15.png', Munch: 'https://i.imgur.com/VrENQFY.png',
+  Maddie: 'https://i.imgur.com/Xz1Hm06.jpg', Varo: 'https://i.imgur.com/GFs2KN3.jpg',
+  Arco: 'https://i.imgur.com/e2LeJ6Z.jpg', Shakira: 'https://i.imgur.com/mdM9Q08.jpg',
+  King: 'https://na.leagueoflegends.com/sites/default/files/styles/scale_xlarge/public/upload/2012_12_snowdown_banner_client.jpg?itok=TDV3BvZW'}
 poroIntros:
-    - "Soft lil thing for you!\n"
-    - "Made of magic, love, and a lil bit of sugar.\n"
-    - "Fresh one right out the oven!\n"
-    - "This one seems to like you, aww.\n"
-    - "Poros make the best pets!\n"
-    - "Snaks! Does anyone have any snaks for the lil guy!?\n"
-    - "Ever seen one this fluffy?\n"
-    - "You can never lose a poro, they're just real good at hide&seek.\n"
-    - "Even in the coldest climates, poros never stop smiling.\n"
-    - "I think this one will do just fine.\n"
+- |
+  Soft lil thing for you!
+- |
+  Made of magic, love, and a lil bit of sugar.
+- |
+  Fresh one right out the oven!
+- |
+  This one seems to like you, aww.
+- |
+  Poros make the best pets!
+- |
+  Snaks! Does anyone have any snaks for the lil guy!?
+- |
+  Ever seen one this fluffy?
+- |
+  You can never lose a poro, they're just real good at hide&seek.
+- |
+  Even in the coldest climates, poros never stop smiling.
+- |
+  I think this one will do just fine.
