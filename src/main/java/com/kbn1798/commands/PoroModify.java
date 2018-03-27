@@ -2,6 +2,7 @@ package com.kbn1798.commands;
 
 import com.kbn1798.core.MainRunner;
 import com.kbn1798.utils.BotUtils;
+import com.kbn1798.utils.YamlGen;
 
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 
@@ -16,11 +17,12 @@ public class PoroModify {
 	 * @param url The url attached to the name attempting to be added to configuration
 	 */
 	public static void addPoro(MessageReceivedEvent e, String name, String url) {
-		if(MainRunner.config.getPoroNames().contains(name)) {
+		long id = e.getGuild().getLongID();
+		if(MainRunner.config.get(id).getPoroNames().contains(name)) {
 			BotUtils.sendMessage(e.getChannel(), "Seems "+name+" already exists in the file!\nEither rename your poro or remove the one which shares this name");
 		}else {
-			MainRunner.config.getPoroPics().put(name, url);
-			MainRunner.saveConfig();
+			MainRunner.config.get(id).getPoroPics().put(name, url);
+			YamlGen.saveConfig(id);
 			BotUtils.sendMessage(e.getChannel(), name+" has been saved with provided URL!\nType /poro "+name+" to bring it up.");
 		}
 	}
@@ -33,11 +35,12 @@ public class PoroModify {
 	 * @param name The requested name to be removed from configuration
 	 */
 	public static void removePoro(MessageReceivedEvent e, String name) {
-		if(MainRunner.config.getPoroNames().contains(name)) {
-			if(MainRunner.config.getPoroNames().size()>1) {
-				String url = MainRunner.config.getPoroPics().get(name);
-				MainRunner.config.getPoroPics().remove(name);
-				MainRunner.saveConfig();
+		long id = e.getGuild().getLongID();
+		if(MainRunner.config.get(id).getPoroNames().contains(name)) {
+			if(MainRunner.config.get(id).getPoroNames().size()>1) {
+				String url = MainRunner.config.get(id).getPoroPics().get(name);
+				MainRunner.config.get(id).getPoroPics().remove(name);
+				YamlGen.saveConfig(id);
 				BotUtils.sendMessage(e.getChannel(), name+" has been removed from the list! Too add back, type:\n/poro add "+name+" "+url);
 			}else {
 				BotUtils.sendMessage(e.getChannel(), "Oops! If we were to remove "+name+" there would be no poros in the list!\nAdd more to remove "+name);

@@ -21,20 +21,22 @@ public class PoroShow {
 	 * @throws IOException Classic I/O Exception.
 	 */
 	public static void providePoro(MessageReceivedEvent event) throws MalformedURLException, IOException{
-		int i = (int) (Math.random()*MainRunner.config.getPoroNames().size());
+		long id = event.getGuild().getLongID();
+		int i = (int) (Math.random()*MainRunner.config.get(id).getPoroNames().size());
 		String name = "";
 		int j=0;
 		System.out.println(i);
-		for(String s: MainRunner.config.getPoroNames()) {
+		for(String s: MainRunner.config.get(id).getPoroNames()) {
 			if(j==i) {
 				name = s;
 				break;
 			}j++;
 		}
 		System.out.println(name);
-		System.out.println(MainRunner.config.getPoroPics().get(name));
-		int k = (int) (Math.random()*MainRunner.config.getPoroIntros().size());
-    	BotUtils.embedFileFromURL(event.getChannel(), MainRunner.config.getPoroPics().get(name), MainRunner.config.getPoroIntros().get(k), "Found one!");
+		System.out.println(MainRunner.config.get(id).getPoroPics().get(name));
+		int k = (int) (Math.random()*MainRunner.config.get(id).getPoroIntros().size());
+    	BotUtils.embedFileFromURL(event.getChannel(), MainRunner.config.get(id).getPoroPics().get(name), 
+    			MainRunner.config.get(id).getPoroIntros().get(k), "Found one!");
 	}
 	
 	/***
@@ -46,9 +48,11 @@ public class PoroShow {
 	 * @throws IOException Classic IO exception.
 	 */
 	public static void provideSpecPoro(MessageReceivedEvent event) throws MalformedURLException, IOException{
+		long id = event.getGuild().getLongID();
 		String name = event.getMessage().getContent().split(" ")[1];
-		int k = (int) (Math.random()*MainRunner.config.getPoroIntros().size());
-		BotUtils.embedFileFromURL(event.getChannel(), MainRunner.config.getPoroPics().get(name), MainRunner.config.getPoroIntros().get(k), "Heres "+name+"!");
+		int k = (int) (Math.random()*MainRunner.config.get(id).getPoroIntros().size());
+		BotUtils.embedFileFromURL(event.getChannel(), MainRunner.config.get(id).getPoroPics().get(name),
+				MainRunner.config.get(id).getPoroIntros().get(k), "Heres "+name+"!");
 	}
 
 	/***
@@ -57,7 +61,9 @@ public class PoroShow {
 	 * @param event The trigger event that calls this method (/poro list)
 	 */
 	public static void listBois(MessageReceivedEvent event) {
-		HashMap<String, String> pics = MainRunner.config.getPoroPics();
+		long id = event.getGuild().getLongID();
+		System.out.println("ID is "+id);
+		HashMap<String, String> pics = MainRunner.config.get(id).getPoroPics();
 		ArrayList<String> fields = new ArrayList<String>();
 		for(String s:pics.keySet()) {
 			fields.add(s);

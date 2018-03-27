@@ -7,8 +7,10 @@ import com.kbn1798.commands.PoroModify;
 import com.kbn1798.commands.PoroRoll;
 import com.kbn1798.commands.PoroShow;
 import com.kbn1798.utils.BotUtils;
+import com.kbn1798.utils.YamlGen;
 
 import sx.blah.discord.api.events.EventSubscriber;
+import sx.blah.discord.handle.impl.events.guild.GuildCreateEvent;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 
 public class MyEvents {
@@ -22,6 +24,7 @@ public class MyEvents {
 	 */
     @EventSubscriber
     public void onMessageReceived(MessageReceivedEvent event) throws MalformedURLException, IOException{
+    	long id = event.getGuild().getLongID();
     	String content = event.getMessage().getContent();
         if(content.startsWith(BotUtils.BOT_PREFIX + "test")) {
             BotUtils.sendMessage(event.getChannel(), "Result!");
@@ -48,7 +51,7 @@ public class MyEvents {
         				PoroModify.argsRemoveError(event);
         			}
         			
-        		}else if(MainRunner.config.getPoroNames().contains(split[1])) {
+        		}else if(MainRunner.config.get(id).getPoroNames().contains(split[1])) {
         			PoroShow.provideSpecPoro(event);
         		}else {
         			PoroShow.nameFindError(event);
@@ -62,4 +65,10 @@ public class MyEvents {
         }
     }
 
+    
+    @EventSubscriber
+    public void onGuildCreateJoin(GuildCreateEvent event) {
+    	System.out.println("Pew");
+    	YamlGen.checkConfig();
+    }
 }

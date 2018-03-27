@@ -1,24 +1,18 @@
 package com.kbn1798.core;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.HashMap;
-import java.util.Map;
-
-import org.yaml.snakeyaml.Yaml;
-
 import com.kbn1798.utils.BotUtils;
 import com.kbn1798.utils.Configuration;
+import com.kbn1798.utils.YamlGen;
 
 import sx.blah.discord.api.IDiscordClient;
 
 public class MainRunner {
-	public static Configuration config;
-	public static String path;
+	public static HashMap<Long, Configuration> config = new HashMap<Long, Configuration>(); //Holds ServerLongID and Config attached
+	public static IDiscordClient client;
+	public static File folder;
 	
     public static void main(String[] args) throws IOException{
     	//Main malformed input check block.
@@ -34,43 +28,33 @@ public class MainRunner {
         	}
         }
         
-        //Configuration set up and init using snakeyaml
-        Yaml yaml = new Yaml();  
-        path = args[1];
-        try( InputStream in = Files.newInputStream( Paths.get(path) ) ) {
-            config = yaml.loadAs( in, Configuration.class );
-        }catch(Exception e){
-        	File f = new File(args[1]);
-        	f.createNewFile();
-        	InputStream in = Files.newInputStream( Paths.get(path) );
-        	config = yaml.loadAs( in, Configuration.class );
+        folder = new File("Configs");
+        if(!folder.exists()) {
+        	try {
+        		folder.mkdir();
+        	}catch(SecurityException e) {
+        		e.printStackTrace();
+        	}
         }
-        //System.out.println(config.toString());
+     
 
         IDiscordClient cli = BotUtils.getBuiltDiscordClient(args[0]);
+        client = cli;
 
         // Register a listener via the EventSubscriber annotation which allows for organization and delegation of events
         cli.getDispatcher().registerListener(new MyEvents());
 
         // Only login after all events are registered otherwise some may be missed.
         cli.login();
-
+        while(!client.isReady()) {}
+        YamlGen.checkConfig();//Guilds are intiilized
+        
     }
     
-    /***
-     * Acts as a quick call to save the config of a given instance of the
-     * program.
-     */
-    public static void saveConfig() {
-    	Yaml yaml = new Yaml();
-    	Map<String, Object> data = new HashMap<String, Object>();
-    	data.put("poroPics", config.getPoroPics());
-    	data.put("poroIntros", config.getPoroIntros());
-    	try {
-    		yaml.dump(data, new FileWriter(path));
-    	}catch(IOException e) {
-    		e.printStackTrace();
-    	}
-    }
+    
+    
 
+    
+
+    
 }
