@@ -1,5 +1,6 @@
 package com.kbn1798.commands;
 
+import java.io.IOException;
 import java.util.Random;
 
 import com.kbn1798.utils.BotUtils;
@@ -31,6 +32,13 @@ public class PoroRoll {
 		}else if(s.length>=2) { // Container for meme and base roll commands.
 			if(s[1].equalsIgnoreCase("froshboard")) {
 				BotUtils.sendMessage(e.getChannel(), "Conditional!");
+				return;
+			}if(s[1].equalsIgnoreCase("poro")) {
+				try {
+					BotUtils.embedFileFromURL(e.getChannel(), "https://i.imgur.com/e3fohtc.gif", "Roll on little dude!", "ROLL PORO");
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 				return;
 			}
 			String[] s2 = s[1].split("d"); //Split commands like '1d100' to 1, and 100.
